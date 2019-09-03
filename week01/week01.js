@@ -12,8 +12,7 @@ var urls = ['https://parsons.nyc/aa/m01.html',
     'https://parsons.nyc/aa/m09.html',
     'https://parsons.nyc/aa/m10.html'];
 
-const filePath = '/home/ec2-user/environment/data-structures/week01/';
-const fns = ['m01.txt',
+var fns = ['m01.txt',
    'm02.txt',
    'm03.txt',
    'm04.txt',
