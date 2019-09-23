@@ -49,6 +49,8 @@ client.query(thisQuery, (err, res) => {
 
 This is directly from the starter code. Without the .config() on the dotenv constant we created, the "Client" object has no reference to pieces of information needed to validate access to the database. Once the dotenv was properly set up, this code ran without any changes.
 
+
+
 ### Step 3 - Populating the Database
 
 ```javascript
@@ -70,6 +72,7 @@ async.eachSeries(meetings, function(value, callback) {
     });
     setTimeout(callback, 1000); 
 }); 
+
 '''
 
 To load in the data from last week that I put throw the TAMU API, I loaded the .json file with the address, longitude, and latitude using require(). 
