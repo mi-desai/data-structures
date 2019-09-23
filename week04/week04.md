@@ -33,8 +33,6 @@ Next, I made sure all sensitive information was protected behind environmental v
 
 ```javascript
 
-//-----------------STEP ONE-------------------
-
 let client = new Client(db_credentials);
 client.connect();
 
@@ -49,12 +47,9 @@ client.query(thisQuery, (err, res) => {
 
 This is directly from the starter code. Without the .config() on the dotenv constant we created, the "Client" object has no reference to pieces of information needed to validate access to the database. Once the dotenv was properly set up, this code ran without any changes.
 
-
-
 ### Step 3 - Populating the Database
 
 ```javascript
-//-----------STEP TWO------------
 
 let meetings = require('../week03/geocodes.json');
 
@@ -73,13 +68,11 @@ async.eachSeries(meetings, function(value, callback) {
     setTimeout(callback, 1000); 
 }); 
 
-'''
+```
 
 To load in the data from last week that I put throw the TAMU API, I loaded the .json file with the address, longitude, and latitude using require(). 
 
 I also changed around the variable thisQuery to use template literals. 
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals 
 
 Template literals allows for strings to be written in "cleaner" ways using the notation ${expression or function to call} and concatenating this expression with strings. I thought this would be a cleaner way to write queries to our database, since we can avoid using the 'E' for escape notation, which I always find very confusing. 
 
@@ -87,8 +80,7 @@ Nothing else has been changed from this code.
 
 ### Step 4 - Querying the Database
 
-'''javascript
-// ----------STEP THREE----------
+```javascript
 var client = new Client(db_credentials);
     client.connect();
 
