@@ -4,6 +4,8 @@
 
 The assignment is to create our own unique process blog on a topic of our choice with a unique primary key and potentially a sort key for a NoSQL data table in AWS's DynamoDB. I decided on a denormalized data model which I believe offers a greater degree of flexibility in structuring and changing the data structure as the Process Blog develops and changes, which is easier than a fully normalized DB. See below for my data model sketch: 
 
+![alt text](https://github.com/mi-desai/data-structures/blob/master/week05/Data%20Model%20Week05.jpg)
+
 ### Step 2: Setup
 
 BlogEntry {<br/>
@@ -74,5 +76,6 @@ async.eachSeries(blogEntries, function(entry, callback) {
     setTimeout(callback, 1000); 
       });
 ```
+![alt text](https://github.com/mi-desai/data-structures/blob/master/week05/ProcessBlog%20DB%20Results.JPG)
 
 
