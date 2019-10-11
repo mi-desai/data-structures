@@ -1,8 +1,8 @@
-#Week 6 Assignment
+# Week 6 Assignment
 
 The assignment was to query both our databases that we created in prior weeks. The AA database is a PostgreSQL database that uses a formal SQL query. The Process Blog/Dear Diary database is stored in an Amazon DynamoDB NoSQL database.
 
-###PostgreSQL Query into AA Database
+### PostgreSQL Query into AA Database
 
 All SQL queries have to be structured in a very precise format. Much of the query was already supplied by the starter code, which is pasted below: 
 
@@ -63,10 +63,10 @@ Will update once Week07 is done.
 
 Screenshot of results below: 
 
+![](https://github.com/mi-desai/data-structures/blob/master/week06/SQL%20Screencap.JPG)
 
 
-
-###DynamoDB Query into Process Blog
+### DynamoDB Query into Process Blog
 
 Teacher and month number were my partition and sort keys, respectively. To teach myself exactly how these DB queries worked, I reduced the query down to the simplest version that still worked and returned values I wanted, then began to iterate on it again to see if other queries would work (I had a very difficult time getting any other queries to work properly)
 
@@ -102,3 +102,5 @@ In this case, I wanted to get the entries/assignments from Richard The in the mo
 While this satisfies the requirements of the assignment, since I got a result using only the primary key from my first query, I will return to this after additional research into how to structure the query with my sort key. 
 
 See below for screenshot of results: 
+
+![](https://github.com/mi-desai/data-structures/blob/master/week06/NoSQL%20Screencap.JPG)
