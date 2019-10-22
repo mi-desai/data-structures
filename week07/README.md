@@ -40,6 +40,9 @@ After going back to my Parse script and looking at why these instances didn't ha
 
 Those problems took me the longest to debug and understand, but once they were done, I was able to INSERT and query as much as I wanted. 
 
+### DB Outputs
+
+
 
 
 ### A Disclaimer on Doing Three Small Jobs "Manually" in the case of major errors I couldn't fix programmatically
