@@ -42,7 +42,47 @@ Those problems took me the longest to debug and understand, but once they were d
 
 ### DB Outputs
 
+```javascript
+// ----------------QUERYING MEETING TABLE-----------------------
 
+//Explanation Block
+//I wrote a few queries to test to see everything and see how well everything worked. 
+//I think this will be serve my final 'map app' really well. 
+
+var client = new Client(db_credentials);
+    client.connect();
+
+    // Sample SQL statement to query the entire contents of a table: 
+    var thisQuery = "SELECT * FROM meetings WHERE zipcode = '10003';"; 
+
+    client.query(thisQuery, (err, res) => {
+        // console.log(err, res.rows);
+        if (err) {throw new Error(err);}
+        console.log(res.rows); 
+        // fs.writeFileSync('dbIDs.txt', JSON.stringify(res.rows, null, 1)); 
+        client.end();
+    });
+```
+
+![](https://github.com/mi-desai/data-structures/blob/master/week07/meeting-dbquery.jpg)
+
+```javascript
+// ----------------QUERYING INSTANCE TABLE-----------------------
+//Explanation Block
+//For instances, the creation of the table was more complicated but the querying is just as easy as above. 
+
+var client = new Client(db_credentials);
+    client.connect();
+
+    // Sample SQL statement to query the entire contents of a table: 
+    var thisQuery = "SELECT weekday FROM instances WHERE meetingID = 'm0314';"; 
+
+    client.query(thisQuery, (err, res) => {
+        console.log(err, res.rows);
+        client.end();
+    });
+```
+![](https://github.com/mi-desai/data-structures/blob/master/week07/instance-dbquery.jpg)
 
 
 ### A Disclaimer on Doing Three Small Jobs "Manually" in the case of major errors I couldn't fix programmatically
