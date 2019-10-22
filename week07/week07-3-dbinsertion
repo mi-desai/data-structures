@@ -1,0 +1,119 @@
+//---------DEPENDENCIES AND SETUP-------------
+
+const dotenv = require('dotenv').config({path: '/home/ec2-user/environment/.env'});
+
+var async = require('async'); 
+var fs = require('fs'); 
+const { Client } = require('pg');
+
+var db_credentials = new Object();
+db_credentials.user = process.env.AWS_USR;
+db_credentials.host = process.env.AWS_END;
+db_credentials.database = 'aa';
+db_credentials.password = process.env.AWSRDS_PW;
+db_credentials.port = 5432;
+
+//---------CREATING TABLES--------------------
+
+//Explanation Block
+//I wanted to create two tables, with meetingID as the primary key, and with the "instances" table including the meetingID as foreign key so that all instances associated with a particular meeting can be found with two queries. 
+//I ended up using very high varchar counts to store all the string data, assuming most of them would fall within 256 characters - which I thought was appropriate considering 246 bits are in a byte, so I'm guessing this will allow me to estimate the max amount of physical memory this would take up in the database. 
+//I had to drop table several times, because I realied there were approximately 26 meetingID's from my JSON that were not picked up by my original INSERT query, which after hours, I realized was because entries associated with those meetingID's had apostrophes in them, which SQL was picking up in the query as a break (I think). Once I removed the apostrophes, all 374 meetingID's and their entries were written to the DB. 
+
+let client = new Client(db_credentials);
+client.connect();
+
+// Below are my queries for creating two tables - meeting and instances. Meeting records the address, lat, long, and name. Instance records the start time, end time, type of meeting, weekday, and special interest of the meeting. Each meeting and instance have a meetingID code to allow for better querying. 
+var thisQuery = "DROP TABLE meetings; CREATE TABLE meetings (meetingID varchar (10) PRIMARY KEY, location varchar (100), name varchar (255), fulladdress varchar(255), zipcode char(5), address varchar(100), details varchar(255), city varchar(20), state char(2), latitude double precision, longitude double precision);";
+var anotherQuery = "CREATE TABLE instances (meetingID varchar (10) NOT NULL REFERENCES meetings(meetingID), type varchar (255), interest varchar (255), weekday varchar (15), startTime smallint, endTime smallint);";
+
+
+client.query(thisQuery, (err, res) => {
+    console.log(err, res);
+    client.end();
+});
+
+
+//-----------POPULATING INSTANCE TABLE------------
+
+//Explanation Block
+//Instances still needed some preprocessing to get it ready for the INSERT. To accomplish this I used a loop. The problem was that my meetingInstances were arrays of instances and I needed each instance to be one element in an array of all instances. 
+//I solved this problem by using a spread operator: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax. 
+//By simply putting a ... in front of my input push to firstInputs, every element in every array and sub-array was reorganized into a single array that could be fed into the INSERT correctly. 
+
+let meetings = JSON.parse(fs.readFileSync('/home/ec2-user/environment/week07/everything.json'));
+
+let firstInputs = []; 
+
+for (let i = 0; i < meetings.length; i++) {
+    let input = meetings[i].meetingInstances;
+    firstInputs.push(...input); 
+}
+
+async.eachSeries(firstInputs, function(value, callback) {
+    const client = new Client(db_credentials);
+    client.connect();
+    var thisQuery = "INSERT INTO instances VALUES (E'" + value.meetingID + "', '" + value.type + "', '" + value.interest + "', '" + value.weekday + "', " + value.startTime + ", " + value.endTime + ");"; 
+    console.log(thisQuery);
+    client.query(thisQuery, (err, res) => {
+        console.log(err, res);
+        client.end();
+    });
+    setTimeout(callback, 1000); 
+}); 
+
+//-----------POPULATING MEETING TABLE------------
+
+//Explanation Block
+//This was much easier than populating instances, since everything in the meetings object was already organized to retrieve each object property for the query. 
+//I think there is a much easier way to do this rather than doing a separate query for every single new entry - entering them 50 at a time, etc, but I found the code explanations for these in JS to be lacking. 
+
+let meetings = require('../week07/everything.json');
+
+async.eachSeries(meetings, function(value, callback) {
+    const client = new Client(db_credentials);
+    client.connect();
+     var thisQuery = "INSERT INTO meetings VALUES (E'" + value.meetingID + "', '" + value.location + "', '" + value.name + "', '" + value.fulladdress + "', '" + value.zipcode + "', '" + value.address + "', '" + value.details + "', '" + value.city + "', '" + value.state + "', " + value.latitude + ", " + value.longitude + ");";
+    console.log(thisQuery);
+    client.query(thisQuery, (err, res) => {
+        console.log(err, res);
+        client.end();
+    });
+    setTimeout(callback, 1000); 
+}); 
+
+// ----------------QUERYING MEETING TABLE-----------------------
+
+//Explanation Block
+//I wrote a few queries to test to see everything and see how well everything worked. 
+//I think this will be serve my final 'map app' really well. 
+
+var client = new Client(db_credentials);
+    client.connect();
+
+    // Sample SQL statement to query the entire contents of a table: 
+    var thisQuery = "SELECT * FROM meetings WHERE zipcode = '10003';"; 
+
+    client.query(thisQuery, (err, res) => {
+        // console.log(err, res.rows);
+        if (err) {throw new Error(err);}
+        console.log(res.rows); 
+        // fs.writeFileSync('dbIDs.txt', JSON.stringify(res.rows, null, 1)); 
+        client.end();
+    });
+    
+
+// ----------------QUERYING INSTANCE TABLE-----------------------
+//Explanation Block
+//For instances, the creation of the table was more complicated but the querying is just as easy as above. 
+
+var client = new Client(db_credentials);
+    client.connect();
+
+    // Sample SQL statement to query the entire contents of a table: 
+    var thisQuery = "SELECT weekday FROM instances WHERE meetingID = 'm0314';"; 
+
+    client.query(thisQuery, (err, res) => {
+        console.log(err, res.rows);
+        client.end();
+    });
