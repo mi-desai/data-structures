@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sensor App</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" type="text/css" href="css/chart.min.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/code-snippet.min.js"></script>
+    <script src="js/raphael.min.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/sensor.js"></script>
+    <style>
+        .menu {
+            width: 80%;
+        }
+
+        #id {
+            width: 100%;
+        }
+        
+        .body {
+            background: #F2EFE9;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+    <div class="menu">
+        <p>
+            <label for="amount">Date range:</label>
+            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+
+        <div id="slider-range"></div>
+        <button id="submit" type="button">Resize the Bars Above and Click Here to See the Temperature in My Room!</button>
+
+        <div id="wrapper"></div>
+        <div id="output"></div>
+
+    </div>
+</body>
+
+</html>

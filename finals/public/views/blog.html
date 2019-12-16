@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Diary App</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" type="text/css" href="css/chart.min.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="js/blog.js"></script>
+    <style>
+        body {
+            background: #F2EFE9;
+        }
+    
+        .Subject {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            font-family: sans-serif;
+        }
+        .Assignment {
+            margin-top: 5px;
+            font-size: 18px;
+            font-family: sans-serif;
+        }
+        .Language {
+            margin-top: 5px;
+            font-size: 16px;
+            font-family: sans-serif;
+        }
+        .Description {
+            font-size: 16px;
+            margin-top: 5px;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <!-- Dropdown menu for Class -->
+        <select class="dropdown" name="assignment">
+        <option value="Week01">Data Structures Week01</option>
+        <option value="Week02">Data Structures Week02</option>
+        <option value="Week03">Data Structures Week03</option>
+        <option value="Week04">Data Structures Week04</option>
+        <option value="Week05">Data Structures Week05</option>
+        <option value="Week06">Data Structures Week06</option>
+        <option value="Week07">Data Structures Week07</option>
+        <option value="Week08">Data Structures Week08</option>
+        <option value="Week09">Data Structures Week09</option>
+        <option value="Week10">Data Structures Week10</option>
+        <option value="Week11">Data Structures Week11</option>
+        <option value="Final - AA Map">Data Structures Final Map</option>
+        <option value="Final - Diary">Data Structures Final Blog</option>
+        <option value="Final - Sensor">Data Structures Final Sensor</option>
+        <option value="Color Reading">DVIA - Reading</option>
+        <option value="Stones Unturned">DVIA - Map</option>
+        <option value="Right Twice a Day">DVIA - Clocks</option>
+        <option value="A Thousand Suns">DVIA - Poster</option>
+        <option value="R for Statistics Guide, Part 1">Statistics - Learning Basic R</option>
+        <option value="R for Statistics Guide, Part 2">Statistics - Learning Advanced R</option>
+        <option value="Linear Regression Problem Set">Statistics - Linear Regression</option>
+        <option value="Basic Statistics Review Set">Basic Statistics Review</option>
+        <option value="Interaction & Moderation Problem Set">Statistics - Interaction & Moderation</option>
+        <option value="Logistic Regression Problem Set">Statistics - Logistic Regression</option>
+        <option value="Factor Analysis Problem Set">Statistics - Factor Analysis</option>
+        <option value="Quantitative Visualization">Studio - Quantitative Project </option>
+        <option value="Qualitative Visualization">Studio - Qualitative Project </option>
+        <option value="Interactive Visualization">Studio - Interactive Project </option>
+        <option value="Mobile Visualization">Studio - Mobile Project </option>
+    </select>
+        <!-- This div is where we will put information using the blog.js file -->
+        <div class="Subject"></div>
+        <div class="Assignment"></div>
+        <div class="Language"></div>
+        <div class="Reading"></div>
+        <div class="Coding"></div>
+        <div class="Description"></div>
+    </div>
+
+</body>
+
+</html>

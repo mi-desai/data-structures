@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Alcoholics Anonymous Meeting Finder</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
+    <style>
+    /* default dimensions for the leaflet map */
+    #map{
+      width: 1080px;
+      height: 750px;
+      margin-left: 20px;
+    }
+    
+    input:checked + span {
+      color: #0051E6;
+      font-weight: bold;
+    }
+    
+    .instanceTable {
+      width: 350px;
+      overflow: auto;
+      display: none;
+    }
+    
+    .show {
+      display: block;
+    }
+    
+    .meetingText {
+      color: blue;
+      text-decoration: underline;
+    }
+    
+    #content {
+      display: flex;
+    }
+    
+  #searchResults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -50px;
+  }
+  
+  #count {
+    display: none;
+  }
+  
+  #instructions {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    top: 25%;
+    left: 10%;
+    color: white;
+    background: blue;
+    padding: 20px;
+    word-wrap: break-word;
+    vertical-align: middle;
+  }
+    
+      </style>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <style rel="stylesheet" type="text/css" href="css/aa.css"></style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
+    crossorigin="anonymous"></script>
+    <script src="js/aa.js"></script>
+</head>
+<body>
+    <h1>AA Meeting Finder</h1>
+    <div id="content">
+      <div>
+      <h3>Weekdays</h3>
+      <input type="checkbox" name="weekday" value="Sundays"><span>Sunday</span><br>
+      <input type="checkbox" name="weekday" value="Mondays"><span>Monday</span><br>
+      <input type="checkbox" name="weekday" value="Tuesdays"><span>Tuesday</span><br>
+      <input type="checkbox" name="weekday" value="Wednesdays"><span>Wednesday</span><br>
+      <input type="checkbox" name="weekday" value="Thursdays"><span>Thursday</span><br>
+      <input type="checkbox" name="weekday" value="Fridays"><span>Friday</span><br>
+      <input type="checkbox" name="weekday" value="Saturdays"><span>Saturday</span><br>
+      <input type="checkbox" name="weekday" value="*"><span>All Week</span><br>
+      
+      <h3>Start-Time</h3>
+      <input type="checkbox" name="times" value="[601,1200]"><span>Mornings</span><br>
+      <input type="checkbox" name="times" value="[1201,1500]"><span>Early Afternoon</span><br>
+      <input type="checkbox" name="times" value="[1501,1800]"><span>Late Afternoon</span><br>
+      <input type="checkbox" name="times" value="[1801,2100]"><span>Evenings</span><br>
+      <input type="checkbox" name="times" value="[2101,2359]"><span>Nights</span><br>
+      <input type="checkbox" name="times" value="[0,600]"><span>Late Nights</span><br>
+      <input type="checkbox" name="times" value="*" checked><span>All Day</span><br>
+      
+      <h3>Types</h3>
+      <input type="checkbox" value="LIKE 'B =%'" name="type"><span>Beginners</span><br>
+      <input type="checkbox" value="LIKE 'BB =%'" name="type"><span>Big Book</span><br>
+      <input type="checkbox" value="LIKE 'C =%'" name="type"><span>Closed Discussion</span><br>
+      <input type="checkbox" value="LIKE 'OD =%'" name="type"><span>Open Discussion</span><br>
+       <input type="checkbox" value="LIKE 'S =%'" name="type"><span>Step Meeting</span><br>
+      <input type="checkbox" value="LIKE 'Sp =%'" name="type"><span>Spanish Speaking</span><br>
+      <input type="checkbox" value="LIKE 'T =%'" name="type"><span>Tradition</span><br>
+      <input type="checkbox" value="LIKE 'O =%'" name="type"><span>Open Meeting</span><br>
+      <input type="checkbox" value="LIKE 'Medi%'" name="type"><span>Meditation</span><br>
+      <input type="checkbox" value="NOT LIKE '%=%'" name="type"><span>Other</span><br>
+      <input type="checkbox" value="*" name="type" checked><span>All Meetings</span><br><br>
+
+      <button id="submit" type="button">Find Meetings!</button>
+      </div>
+      <div id="searchResults">
+        <h3 id="count">Title</h3>
+    <div id="map"></div>
+    </div>
+    </div>
+    <div id="instructions">
+      <div>Choose some options of interest for days, times, and types and then select the "Find Meetings" button.</div>
+    </div>
+</body>
+</html>
